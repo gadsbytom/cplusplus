@@ -1,13 +1,33 @@
 #include "Scarab.h"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 int main() {
     Scarab scarab;
-    const int windowSize = 400; // Size of the window
-    const int cellSize = windowSize / Scarab::size; // Size of one cell in the window
+    const int windowSize = 400; 
+    const int cellSize = windowSize / Scarab::size; 
 
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(windowSize, windowSize), "Scarab Matrix");
+
+    // Pull the scarab image from disk
+    sf::Texture texture;
+
+    if (!texture.loadFromFile("beetle.jpg")) {
+        std::cerr << "Failed to load texture from file" << std::endl;
+    }
+
+
+    // Define the sprite from the image
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+
+    // Define the sizing of the beetle
+    sprite.setScale(
+    float(cellSize) / sprite.getLocalBounds().width, 
+    float(cellSize) / sprite.getLocalBounds().height
+    );
+
 
     // Main loop that continues until we close the window
     while (window.isOpen()) {
@@ -39,12 +59,19 @@ int main() {
                 cell.setOutlineThickness(1);
 
                 if (scarab.isBlackBox(i, j)) {
-                    cell.setFillColor(sf::Color::Black);
+                    sprite.setPosition(j * cellSize, i * cellSize);
+                    window.draw(sprite);
+                    sf::RectangleShape border(sf::Vector2f(cellSize, cellSize));
+                    border.setPosition(j * cellSize, i * cellSize);
+                    border.setOutlineColor(sf::Color::Black);
+                    border.setOutlineThickness(1);
+                    border.setFillColor(sf::Color::Transparent); // Make the inside of the rectangle transparent
+                    window.draw(border);
                 } else {
                     cell.setFillColor(sf::Color::White);
+                    cell.setOutlineThickness(1);
+                    window.draw(cell);
                 }
-
-                window.draw(cell);
             }
         }
 

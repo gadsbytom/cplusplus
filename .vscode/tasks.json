@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile C++ Files",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-c",
+                "${workspaceFolder}/Scara.cpp",
+                "-o",
+                "${workspaceFolder}/Scara.o",
+                "-I",
+                "${env:SFML_INCLUDE_PATH}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Link C++ Project",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "${workspaceFolder}/Scara.o",
+                "${workspaceFolder}/main.o",
+                "-o",
+                "${workspaceFolder}/scara_program",
+                "-L",
+                "${env:SFML_LIBRARY_PATH}",
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system"
+            ],
+            "dependsOn": ["Compile C++ Files"]
+        }
+    ]
+}
