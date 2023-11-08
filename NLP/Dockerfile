@@ -3,6 +3,7 @@ FROM ubuntu:latest
 
 # Set the noninteractive environment variable ot prevent user input
 ENV DEBIAN_FRONTEND noninteractive
+ENV PROCESSOR_NAME=${PROCESSOR_NAME}
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -13,7 +14,10 @@ RUN apt-get update && apt-get install -y \
     cmake \
     pkg-config \
     libopencv-dev \
-    tesseract-ocr libtesseract-dev
+    libtesseract-dev \
+    tesseract-ocr 
+
+ENV CMAKE_PREFIX_PATH="/usr/local/share/tesseract-ocr;/usr/share/tesseract-ocr"
 
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
@@ -25,9 +29,9 @@ COPY . .
 #ENV NAME World
 
 # Build the C++ project
-RUN cmake .
+RUN cmake -DPROCESSOR_NAME=${PROCESSOR_NAME} .
 RUN make 
-RUN chmod +x /usr/src/app/image_processing
+RUN chmod +x /usr/src/app/all_processing
 
 # Run the output program when the container launches
-CMD ["./image_processing"]
+CMD ["./all_processing"]
