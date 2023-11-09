@@ -1,4 +1,4 @@
-# Project Repository
+# C++ exercises
 
 This repository contains two main components: the `scarab` game and the `NLP` pipeline. Below you will find instructions on how to set up and run each part.
 
