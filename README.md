@@ -42,3 +42,8 @@ The pipeline is defined by a `Dockerfile` and `CMakeLists.txt`, which ensure tha
 - Bash shell (for running `.sh` scripts)
 - Docker (for building and running the NLP pipeline)
 - C++ (for the game)
+
+## Next Steps:
+- Build additional NLP features, including:
+- Information Extraction and Summarisation
+- Image extraction and processing
