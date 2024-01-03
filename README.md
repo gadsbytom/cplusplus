@@ -2,7 +2,7 @@
 
 This repository contains two main components: the `scarab` game and the `NLP` pipeline. Below you will find instructions on how to set up and run each part.
 
-## scarab Game
+## Scarab Game
 
 ### Overview
 The `scarab` folder contains a game where the player maneuvers a beetle through obstacles in a desert environment. It's a thrilling and engaging game that runs locally on your machine.
